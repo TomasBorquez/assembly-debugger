@@ -1,9 +1,9 @@
 # Intro
 
-- Not finished probably and wont be either since Windows APIs are boring and annoying
+- Not finished probably and wont be either since `windows.h` is boring and annoying
 - Definitely not usable, barely works on some cases :D
 
-Example:
+**Example**:
 ![image info](./resources/example.png)
 
 ## General:
