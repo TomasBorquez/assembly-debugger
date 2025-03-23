@@ -1,7 +1,8 @@
 # Intro
 
 - Not finished probably and wont be either since `windows.h` is boring and annoying
-- Definitely not usable, barely works on some cases :D
+- Definitely not usable, barely works on example code :D
+- Mainly just to test Clay and make something flashy
 
 **Example**:
 ![image info](./resources/example.png)
