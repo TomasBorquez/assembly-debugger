@@ -5,7 +5,10 @@
 - Mainly just to test Clay and make something flashy
 
 **Example**:
-![image info](./resources/example.mp4)
+<video width="320" height="240" controls>
+  <source src="./resources/example.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## General:
 - [ ] Add asserts everywhere
