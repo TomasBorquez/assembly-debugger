@@ -456,7 +456,7 @@ typedef struct {
   char align[2];
 
   // Border radius
-  char br[6]; // !Not yet working for individual sides
+  char borderRadius[6]; // !Not yet working for individual sides
   Border border;
 
   // Sizing
@@ -565,17 +565,17 @@ static Clay_ElementDeclaration ParseComponentOptions(ComponentOptions options, C
 
   // Border radius parse
   {
-    if (strcmp(options.br, "") != 0) {
-      size_t stringLen = strnlen(options.br, 6);
-      char *delimiter = strrchr(options.br, '-');
+    if (strcmp(options.borderRadius, "") != 0) {
+      size_t stringLen = strnlen(options.borderRadius, 6);
+      char *delimiter = strrchr(options.borderRadius, '-');
 
       assert(delimiter != NULL && "Border radius format is {direction}-{size} ex: t-sm");
 
-      size_t directionLen = delimiter - options.br;
+      size_t directionLen = delimiter - options.borderRadius;
       size_t sizeLen = stringLen - (directionLen + 1);
 
       char directionStr[3];
-      memcpy(directionStr, options.br, directionLen);
+      memcpy(directionStr, options.borderRadius, directionLen);
       directionStr[directionLen] = '\0';
 
       char sizeStr[4];

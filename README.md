@@ -5,13 +5,14 @@
 - Mainly just to test Clay and make something flashy
 
 **Example**:
-![image info](./resources/example.png)
+![image info](./resources/example.mp4)
 
 ## General:
 - [ ] Add asserts everywhere
 - [ ] Fix all warnings
 - [ ] Change functions to static and lowerCase if not used globally
 - [ ] Don't use relative keypress but QWERTY ones
+- [ ] Add hashMap abstraction
 
 ## Debugger:
 - [x] Remove non existent registers
@@ -25,7 +26,7 @@
 
 ## UI:
 - [x] Add align, tl, tc, tr, etc.
-- [x] Border radius, br.
+- [x] Border radius.
 - [x] Move color to renderers add all the colors from 50-950
 - [x] Scroll in general
 - [x] Border

@@ -53,8 +53,8 @@ Clay_String FormatFileSize(Arena *arena, uint64_t size) {
 void FileManagerUI() {
   Clay_TextElementConfig *textConfig = CLAY_TEXT_CONFIG({.fontId = FONT_24, .fontSize = 24, .textColor = CREAM});
   Box(.id = "Body", .pt = 42, .align = "tc", .w = "grow-0", .h = "grow-0", .bg = NEUTRAL_950) {
-    Column(.bg = NEUTRAL_900, .pb = 7, .w = "fit-450", .gap = 8, .br = "a-lg") {
-      Row(.id = "Top-Row", .bg = NEUTRAL_800, .w = "grow-0", .pt = 10, .pb = 5, .pl = 9, .pr = 7, .gap = 5, .br = "t-lg") {
+    Column(.bg = NEUTRAL_900, .pb = 7, .w = "fit-450", .gap = 8, .borderRadius = "a-lg") {
+      Row(.id = "Top-Row", .bg = NEUTRAL_800, .w = "grow-0", .pt = 10, .pb = 5, .pl = 9, .pr = 7, .gap = 5, .borderRadius = "t-lg") {
         TextS("Names", textConfig);
         Separator(.px = 10);
         TextS("Size", textConfig);
@@ -102,8 +102,8 @@ void DebuggerUI() {
   Clay_TextElementConfig *highlightedConfig = CLAY_TEXT_CONFIG({.fontId = FONT_20, .fontSize = 20, .textColor = GREEN_200});
   Clay_TextElementConfig *breakPointConfig = CLAY_TEXT_CONFIG({.fontId = FONT_20, .fontSize = 20, .textColor = RED_500});
   Row(.id = "Body", .w = "grow-0", .bg = NEUTRAL_950, .p = 7, .gap = 7) {
-    Box(.id = "Code", .w = "grow-0", .bg = NEUTRAL_900, .br = "a-xl") {
-      Column(.id = "CodeScroll", .w = "grow-0", .h = "fit-0", .br = "a-xl", .p = 10, .gap = 2, .scroll = "v") {
+    Box(.id = "Code", .w = "grow-0", .bg = NEUTRAL_900, .borderRadius = "a-xl") {
+      Column(.id = "CodeScroll", .w = "grow-0", .h = "fit-0", .borderRadius = "a-xl", .p = 10, .gap = 2, .scroll = "v") {
         int pcIndex = FindInstructionIndex(GetPC());
         const size_t CONTEXT_SIZE = 200;
         size_t start = (pcIndex >= CONTEXT_SIZE) ? pcIndex - CONTEXT_SIZE : 0;
@@ -142,13 +142,13 @@ void DebuggerUI() {
       }
     }
 
-    Box(.id = "SideBar", .w = "fit-300", .h = "grow-0", .bg = NEUTRAL_950, .br = "a-xl", .gap = 7) {
-      Row(.id = "Target", .w = "grow-0", .bg = NEUTRAL_900, .br = "a-xl", .p = 10, .pb = 7, .gap = 5) {
+    Box(.id = "SideBar", .w = "fit-300", .h = "grow-0", .bg = NEUTRAL_950, .borderRadius = "a-xl", .gap = 7) {
+      Row(.id = "Target", .w = "grow-0", .bg = NEUTRAL_900, .borderRadius = "a-xl", .p = 10, .pb = 7, .gap = 5) {
         TextS("Target", subTitleConfig);
         Text(F(&state.arena, "./%s", state.fileName), secondValueConfig);
       }
 
-      Column(.id = "Registers", .w = "grow-0", .bg = NEUTRAL_900, .br = "a-xl", .p = 10) {
+      Column(.id = "Registers", .w = "grow-0", .bg = NEUTRAL_900, .borderRadius = "a-xl", .p = 10) {
         TextS("Registers", subTitleConfig);
 
         Row(.px = 10, .pt = 4, .gap = 7) {
@@ -176,7 +176,7 @@ void DebuggerUI() {
         }
       }
 
-      Column(.id = "Functions", .w = "grow-0", .h = "grow-0", .bg = NEUTRAL_900, .br = "a-xl", .p = 10) {
+      Column(.id = "Functions", .w = "grow-0", .h = "grow-0", .bg = NEUTRAL_900, .borderRadius = "a-xl", .p = 10) {
         TextS("Functions", subTitleConfig);
 
         Column(.px = 10, .pt = 4, .gap = 2, .h = "grow-0", .w = "grow-0") {
@@ -289,7 +289,7 @@ void update() {
 
   if (state.tab == DEBUGGER) {
     double timeDiff = GetTime() - state.startTime;
-    if (state.init == true && timeDiff > 0.1) {
+    if (state.init == true && timeDiff > 0.05) {
       state.init = false;
       FunctionInfo *main = FindFunctionByName("main");
 
@@ -389,8 +389,8 @@ int main() {
 
   {
     RenderOptions options = {
-        .width = 1200,
-        .height = 800,
+        .width = 1400,
+        .height = 900,
         .windowName = "Assembly Debugger",
         .fontPath = "./resources/ComicMono.ttf",
     };
