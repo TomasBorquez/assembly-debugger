@@ -1,4 +1,4 @@
-# Intro
+# About
 
 - Not finished probably and wont be either since `windows.h` is boring and annoying
 - Definitely not usable, barely works on example code :D
