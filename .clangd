@@ -1,10 +1,9 @@
 CompileFlags:
   Add: 
     - -IC:/raylib/include
-    - -I./vendor/capstone/include
-    - -L./vendor/capstone/lib
-    - -lcapstone
+    - -I.
+    - -I./src
+    - -I./vendor
+    - -I./vendor/capstone
     - -std=gnu99
     - -Wall
-    - -IMyIncludeDir 
-  CompilationDatabase: .
