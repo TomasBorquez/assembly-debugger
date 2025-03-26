@@ -22,6 +22,7 @@ typedef struct {
   char *fileName;
   bool init;
   double startTime;
+  double lastPressedG;
 } State;
 State state = {0};
 
@@ -211,7 +212,25 @@ Clay_RenderCommandArray CreateLayout(void) {
 
 void update() {
   if (state.tab == FILE_MANAGER) {
-    if (IsKeyDown(KEY_RIGHT_SHIFT) && IsKeyPressed(KEY_C)) {
+    if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyPressed(KEY_U)) {
+      ScrollContainerBottom("ContainerScroll");
+      state.selection = fileData->totalCount;
+      return;
+    }
+
+    if (IsKeyPressed(KEY_U)) {
+      if (state.lastPressedG == true) {
+        ScrollContainerTop("ContainerScroll");
+        state.lastPressedG = false;
+        state.selection = 0;
+        return;
+      }
+
+      state.lastPressedG = true;
+      return;
+    }
+
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_H)) {
       if (state.selection > 8) {
         ScrollContainerByY("ContainerScroll", -35 * 5);
       }
@@ -225,16 +244,7 @@ void update() {
       return;
     }
 
-    if (IsKeyPressed(KEY_C) && fileData->totalCount > state.selection) {
-      if (state.selection > 8) {
-        ScrollContainerByY("ContainerScroll", -35);
-      }
-
-      state.selection++;
-      return;
-    }
-
-    if (IsKeyDown(KEY_RIGHT_SHIFT) && IsKeyPressed(KEY_V)) {
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_F)) {
       ScrollContainerByY("ContainerScroll", 35 * 5);
       if (state.selection - 5 > 0) {
         state.selection -= 5;
@@ -242,6 +252,15 @@ void update() {
       }
 
       state.selection = 0;
+      return;
+    }
+
+    if (IsKeyPressed(KEY_C) && fileData->totalCount > state.selection) {
+      if (state.selection > 8) {
+        ScrollContainerByY("ContainerScroll", -35);
+      }
+
+      state.selection++;
       return;
     }
 
@@ -288,8 +307,8 @@ void update() {
   }
 
   if (state.tab == DEBUGGER) {
-    double timeDiff = GetTime() - state.startTime;
-    if (state.init == true && timeDiff > 0.05) {
+    double currTime = GetTime();
+    if (state.init == true && currTime - state.startTime > 0.05) {
       state.init = false;
       FunctionInfo *main = FindFunctionByName("main");
 
@@ -301,11 +320,40 @@ void update() {
       ScrollContainerByY("CodeScroll", -22 * (relativeIndex - 15));
     }
 
-    if (IsKeyDown(KEY_RIGHT_SHIFT) && IsKeyPressed(KEY_C)) {
+    if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyPressed(KEY_U)) {
+      const size_t CONTEXT_SIZE = 200;
+      state.selection = CONTEXT_SIZE * 2;
+      ScrollContainerBottom("CodeScroll");
+      return;
+    }
+
+    if (IsKeyPressed(KEY_U)) {
+      if (state.lastPressedG == true) {
+        ScrollContainerTop("CodeScroll");
+        state.lastPressedG = false;
+        state.selection = 0;
+        return;
+      }
+
+      state.lastPressedG = true;
+      return;
+    }
+
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_H)) {
       if (state.selection > 15) {
         ScrollContainerByY("CodeScroll", -22 * 5);
       }
       state.selection += 5;
+      return;
+    }
+
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_F)) {
+      ScrollContainerByY("CodeScroll", 22 * 5);
+      if (state.selection - 5 > 0) {
+        state.selection -= 5;
+        return;
+      }
+      state.selection = 0;
       return;
     }
 
@@ -314,16 +362,6 @@ void update() {
         ScrollContainerByY("CodeScroll", -22);
       }
       state.selection++;
-      return;
-    }
-
-    if (IsKeyDown(KEY_RIGHT_SHIFT) && IsKeyPressed(KEY_V)) {
-      ScrollContainerByY("CodeScroll", 22 * 5);
-      if (state.selection - 5 > 0) {
-        state.selection -= 5;
-        return;
-      }
-      state.selection = 0;
       return;
     }
 

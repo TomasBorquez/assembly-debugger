@@ -20,11 +20,10 @@ https://github.com/user-attachments/assets/7a464bad-8a3c-461b-8d48-dc62d268d912
 # TODOS:
 
 ## General:
-- [ ] Implement `gg` and `G`
+- [x] Implement `gg` and `G`
 - [ ] Add asserts everywhere
 - [ ] Fix all warnings
 - [ ] Change functions to static and lowerCase if not used globally
-- [ ] Don't use relative keypress but QWERTY ones
 - [ ] Add hashMap abstraction
 
 ## Debugger:

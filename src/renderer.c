@@ -311,7 +311,7 @@ void HandleClayErrors(Clay_ErrorData errorData) {
 }
 
 static void initDraw() {
-  if (IsKeyPressed(KEY_H)) {
+  if (IsKeyPressed(KEY_F2)) {
     renderer.debugEnabled = !renderer.debugEnabled;
     Clay_SetDebugModeEnabled(renderer.debugEnabled);
   }
@@ -336,6 +336,17 @@ void ScrollContainerByY(char *containerName, float deltaY) {
     printf("deltaY: %f, minPos: %f, newPos: %f", deltaY, minScrollY, fminf(0, fmaxf(newScrollY, minScrollY)));
   }
   scrollContainerData.scrollPosition->y = newValue;
+}
+
+void ScrollContainerTop(char *containerName) {
+  Clay_ScrollContainerData scrollContainerData = Clay_GetScrollContainerData(Clay__HashString(toClayString(containerName), 0, 0));
+  scrollContainerData.scrollPosition->y = 0;
+}
+
+void ScrollContainerBottom(char *containerName) {
+  Clay_ScrollContainerData scrollContainerData = Clay_GetScrollContainerData(Clay__HashString(toClayString(containerName), 0, 0));
+  float minScrollY = -fmaxf(0, scrollContainerData.contentDimensions.height - scrollContainerData.scrollContainerDimensions.height);
+  scrollContainerData.scrollPosition->y = minScrollY;
 }
 
 void ScrollContainerByX(char *containerName, float deltaX) {
