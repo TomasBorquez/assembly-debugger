@@ -8,9 +8,19 @@
 
 https://github.com/user-attachments/assets/7a464bad-8a3c-461b-8d48-dc62d268d912
 
+# How to run
+
+- You must have raylib installed because yes
+- You must have ninja installed because yes
+- You must be on windows because yes
+- You must use be using MINGW and gcc because yes
+- You must have gdb installed because yes
+- Run `ninja run`, create a `compile_commands.json` for better LSP support `ninja -t compdb > compile_commands.json`
+
 # TODOS:
 
 ## General:
+- [ ] Implement `gg` and `G`
 - [ ] Add asserts everywhere
 - [ ] Fix all warnings
 - [ ] Change functions to static and lowerCase if not used globally
@@ -44,3 +54,4 @@ https://github.com/user-attachments/assets/7a464bad-8a3c-461b-8d48-dc62d268d912
 - [ ] Individual CornerRadius when available
 - [ ] Reverse when available
 - [ ] Margin when available
+
