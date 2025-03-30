@@ -31,9 +31,6 @@ void SetBreakPoint(uintptr_t address);
 
 BYTE ReadMemoryByte(uintptr_t address);
 
-static void debuggerInit(char *programName, DWORD pid);
-static void debuggerRun();
-static void debuggerWaitForSignal();
 void DebuggerHandleCommand(char *line);
 void DebuggerContinueExecution();
 void DebuggerStepInstruction();
@@ -60,3 +57,8 @@ static const Register registerDescriptors[NUMBER_REGISTERS] = {{REG_R15, 15, "r1
 Register GetRegisterDescriptor(size_t index);
 uint64_t GetRegisterValue(RegisterType reg);
 void SetRegisterValue(RegisterType reg, uint64_t value);
+
+// Static
+static void debuggerInit(char *programName, DWORD pid);
+static void debuggerRun();
+static void debuggerWaitForSignal();

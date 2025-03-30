@@ -1,5 +1,6 @@
 #include "debugger.h"
 
+#include "base.h"
 #include "disassembly.h"
 #include <fcntl.h>
 #include <io.h>
@@ -10,7 +11,7 @@
 
 Debugger debugger;
 
-HANDLE getThreadHandle() {
+static HANDLE getThreadHandle() {
   HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, FALSE, debugger.debugEvent.dwThreadId);
   if (hThread == NULL) {
     fprintf(stderr, "Error opening thread: %lu\n", GetLastError());
@@ -19,7 +20,7 @@ HANDLE getThreadHandle() {
   return hThread;
 }
 
-uint64_t getRegisterValue(HANDLE hThread, RegisterType reg) {
+static uint64_t getRegisterValue(HANDLE hThread, RegisterType reg) {
   CONTEXT context;
   context.ContextFlags = CONTEXT_ALL;
 
@@ -89,7 +90,7 @@ uint64_t GetRegisterValue(RegisterType reg) {
   return value;
 }
 
-void setRegisterValue(HANDLE hThread, RegisterType reg, uint64_t value) {
+static void setRegisterValue(HANDLE hThread, RegisterType reg, uint64_t value) {
   CONTEXT context;
   context.ContextFlags = CONTEXT_ALL;
 
@@ -209,7 +210,7 @@ void WriteMemory(uintptr_t address, int64_t value) {
   WriteProcessMemory(debugger.processHandle, (LPVOID)address, &value, 1, &bytesWritten);
 }
 
-void breakPointDisable(BreakPoint *breakPoint) {
+static void breakPointDisable(BreakPoint *breakPoint) {
   if (!breakPoint->enabled) {
     return;
   }
@@ -218,25 +219,18 @@ void breakPointDisable(BreakPoint *breakPoint) {
   breakPoint->enabled = false;
 }
 
-void breakPointEnable(BreakPoint *breakPoint) {
+static void breakPointEnable(BreakPoint *breakPoint) {
   breakPoint->savedData = ReadMemory(breakPoint->address);
   WriteMemory(breakPoint->address, 0xCC);
   breakPoint->enabled = true;
 }
 
 BreakPoint *GetBreakPoint(uintptr_t address) {
-  khiter_t k = kh_get(BreakPointMap, debugger.breakPoints, address);
-  if (k == kh_end(debugger.breakPoints)) {
-    return NULL;
-  }
-  return &kh_value(debugger.breakPoints, k);
+  return HashMapGet(BreakPointMap, debugger.breakPoints, address);
 }
 
 BreakPoint *InsertBreakPoint(BreakPoint breakPoint) {
-  int32_t ret;
-  khiter_t k = kh_put(BreakPointMap, debugger.breakPoints, breakPoint.address, &ret);
-  kh_value(debugger.breakPoints, k) = breakPoint;
-  return &kh_value(debugger.breakPoints, k);
+  return HashMapSet(BreakPointMap, debugger.breakPoints, breakPoint.address, breakPoint);
 }
 
 void SetBreakPoint(uintptr_t address) {

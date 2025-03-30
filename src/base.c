@@ -66,7 +66,7 @@ StringVector StringSplit(const char *s, char delimiter) {
         char *item = (char *)malloc(len + 1);
         memcpy(item, start, len);
         item[len] = '\0';
-        vecPush(result, item);
+        VecPush(result, item);
       }
       start = end + 1;
     }
@@ -79,7 +79,7 @@ StringVector StringSplit(const char *s, char delimiter) {
       char *item = (char *)malloc(len + 1);
       memcpy(item, start, len);
       item[len] = '\0';
-      vecPush(result, item);
+      VecPush(result, item);
     }
   }
   return result;

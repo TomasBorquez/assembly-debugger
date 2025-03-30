@@ -21,9 +21,8 @@ https://github.com/user-attachments/assets/7a464bad-8a3c-461b-8d48-dc62d268d912
 
 ## General:
 - [x] Implement `gg` and `G`
-- [ ] Add asserts everywhere
+- [x] Change functions to static and lowerCase if not used globally
 - [ ] Fix all warnings
-- [ ] Change functions to static and lowerCase if not used globally
 - [ ] Add hashMap abstraction
 
 ## Debugger:

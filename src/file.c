@@ -1,4 +1,5 @@
 #include "file.h"
+#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <windows.h>
@@ -32,7 +33,8 @@ void GetDirFiles() {
   WIN32_FIND_DATA findData;
   HANDLE hFind;
   char searchPath[MAX_PATH];
-  snprintf(searchPath, MAX_PATH, "%s\\*", currentPath);
+  int32_t result = snprintf(searchPath, MAX_PATH - 2, "%s\\*", currentPath);
+  assert(result >= 0 && "sprint should not return error");
 
   hFind = FindFirstFile(searchPath, &findData);
   if (hFind == INVALID_HANDLE_VALUE) {

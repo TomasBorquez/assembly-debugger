@@ -307,18 +307,18 @@ void update() {
   }
 
   if (state.tab == DEBUGGER) {
-    double currTime = GetTime();
-    if (state.init == true && currTime - state.startTime > 0.05) {
-      state.init = false;
-      FunctionInfo *main = FindFunctionByName("main");
-
-      const size_t CONTEXT_SIZE = 200;
-      uintptr_t start = (main->address >= CONTEXT_SIZE) ? main->address - CONTEXT_SIZE : 0;
-      double relativeIndex = main->address - start;
-
-      state.selection = relativeIndex;
-      ScrollContainerByY("CodeScroll", -22 * (relativeIndex - 15));
-    }
+    // double currTime = GetTime();
+    // if (state.init == true && currTime - state.startTime > 0.05) {
+    //   state.init = false;
+    //   FunctionInfo *main = FindFunctionByName("main");
+    //
+    //   const size_t CONTEXT_SIZE = 200;
+    //   uintptr_t start = (main->address >= CONTEXT_SIZE) ? main->address - CONTEXT_SIZE : 0;
+    //   double relativeIndex = main->address - start;
+    //
+    //   state.selection = relativeIndex;
+    //   ScrollContainerByY("CodeScroll", -22 * (relativeIndex - 15));
+    // }
 
     if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyPressed(KEY_U)) {
       const size_t CONTEXT_SIZE = 200;

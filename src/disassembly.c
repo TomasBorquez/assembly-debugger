@@ -1,5 +1,6 @@
 #include "disassembly.h"
 
+#include "base.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,10 +14,9 @@ typedef struct {
   size_t length;
   size_t capacity;
 } InstructionVector;
-
 FunctionVector functionVector = {0};
 
-void pushFunction(uintptr_t address, const char *name) {
+static void pushFunction(uintptr_t address, const char *name) {
   if (functionVector.length >= functionVector.capacity) {
     size_t newCapacity = functionVector.capacity == 0 ? 8 : functionVector.capacity * 2;
     FunctionInfo *newData = (FunctionInfo *)realloc(functionVector.data, newCapacity * sizeof(FunctionInfo));
@@ -33,7 +33,7 @@ void pushFunction(uintptr_t address, const char *name) {
   functionVector.length++;
 }
 
-bool detectFunctions() {
+static bool detectFunctions() {
   assert((ctx.instructions != NULL && ctx.count != 0) && "No disassembled instructions available\n");
 
   for (size_t i = 0; i < ctx.count; i++) {
@@ -73,7 +73,7 @@ bool ReadMemoryBlock(uintptr_t address, unsigned char *buffer, size_t size, size
   return success && (actualBytesRead == size);
 }
 
-bool DisassembleSource(uintptr_t startAddress, uintptr_t endAddress) {
+static bool disassembleSource(uintptr_t startAddress, uintptr_t endAddress) {
   if (ctx.instructions != NULL) {
     cs_free(ctx.instructions, ctx.count);
     ctx.instructions = NULL;
@@ -127,7 +127,7 @@ int FindInstructionIndex(uintptr_t address) {
   return -1;
 }
 
-bool getSectionBoundaries(const char *sectionName, uintptr_t *startAddr, uintptr_t *endAddr) {
+static bool getSectionBoundaries(const char *sectionName, uintptr_t *startAddr, uintptr_t *endAddr) {
   if (strcmp(sectionName, ".text") == 0) {
     // TODO: Get these from actual PE parsing
     *startAddr = debugger.baseAddress + 0x1000; // Typical text section offset
@@ -138,18 +138,7 @@ bool getSectionBoundaries(const char *sectionName, uintptr_t *startAddr, uintptr
   return false;
 }
 
-bool disassembleSection(const char *sectionName) {
-  uintptr_t startAddr, endAddr;
-
-  if (!getSectionBoundaries(sectionName, &startAddr, &endAddr)) {
-    fprintf(stderr, "Could not find section %s\n", sectionName);
-    return false;
-  }
-
-  return DisassembleSource(startAddr, endAddr);
-}
-
-bool disassembleTextSection() {
+static bool disassembleTextSection() {
   uintptr_t startAddr, endAddr;
 
   if (!getSectionBoundaries(".text", &startAddr, &endAddr)) {
@@ -159,10 +148,10 @@ bool disassembleTextSection() {
 
   printf("Disassembling .text section from 0x%llx to 0x%llx\n", (uintptr_t)startAddr, (uintptr_t)endAddr);
 
-  return DisassembleSource(startAddr, endAddr);
+  return disassembleSource(startAddr, endAddr);
 }
 
-bool detectMainFunction() {
+static bool detectMainFunction() {
   if (ctx.instructions == NULL || ctx.count == 0) {
     fprintf(stderr, "No disassembled instructions available\n");
     return false;
@@ -216,7 +205,7 @@ bool detectMainFunction() {
 
 FunctionInfo *FindFunctionByAddress(uintptr_t address) {
   for (int i = 0; i < functionVector.length; i++) {
-    FunctionInfo *currentFunction = &(functionVector.data[i]);
+    FunctionInfo *currentFunction = VecAt(functionVector, i);
     if (address == currentFunction->address) {
       return currentFunction;
     }
@@ -226,7 +215,7 @@ FunctionInfo *FindFunctionByAddress(uintptr_t address) {
 
 FunctionInfo *FindFunctionByName(char *name) {
   for (int i = 0; i < functionVector.length; i++) {
-    FunctionInfo *currentFunction = &(functionVector.data[i]);
+    FunctionInfo *currentFunction = VecAt(functionVector, i);
     if (strcmp(name, currentFunction->name) == 0) {
       return currentFunction;
     }
