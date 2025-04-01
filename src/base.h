@@ -6,6 +6,11 @@
 #include <string.h>
 
 /* HashMap */
+// TODO Add:
+// - HashInit
+// - HashPut
+// - HashDel
+// - HashExist
 #define HashMapGet(type, hashMap, key)                                                                                                                                                                                                         \
   ({                                                                                                                                                                                                                                           \
     khiter_t k = kh_get(type, hashMap, key);                                                                                                                                                                                                   \
@@ -21,6 +26,7 @@
   })
 
 /* Vector */
+// TODO: Change to having to type Vector yourself
 #define VEC_TYPE(typeName, valueType)                                                                                                                                                                                                          \
   typedef struct {                                                                                                                                                                                                                             \
     valueType *data;                                                                                                                                                                                                                           \
@@ -36,7 +42,7 @@
       vector.data = realloc(vector.data, vector.capacity * sizeof(*vector.data));                                                                                                                                                              \
     }                                                                                                                                                                                                                                          \
     vector.data[vector.length++] = value;                                                                                                                                                                                                      \
-    &vector.data[--vector.length];                                                                                                                                                                                                             \
+    &vector.data[vector.length - 1];                                                                                                                                                                                                           \
   })
 
 #define VecPop(vector)                                                                                                                                                                                                                         \
