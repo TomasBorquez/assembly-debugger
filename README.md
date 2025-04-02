@@ -16,7 +16,7 @@ https://github.com/user-attachments/assets/7a464bad-8a3c-461b-8d48-dc62d268d912
     - Windows 10+
     - MINGW and gcc
     - GDB 
-- And just run `ninja run`. 
+- And just run `ninja run` 
 - For better LSP support run: `ninja -t compdb > compile_commands.json`
 
 # TODOS:
