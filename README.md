@@ -10,12 +10,14 @@ https://github.com/user-attachments/assets/7a464bad-8a3c-461b-8d48-dc62d268d912
 
 # How to run
 
-- You must have raylib installed because yes
-- You must have ninja installed because yes
-- You must be on windows because yes
-- You must use be using MINGW and gcc because yes
-- You must have gdb installed because yes
-- Run `ninja run`, create a `compile_commands.json` for better LSP support `ninja -t compdb > compile_commands.json`
+- You must have: 
+    - Raylib on `C:/raylib/`
+    - Ninja
+    - Windows 10+
+    - MINGW and gcc
+    - GDB 
+- And just run `ninja run`. 
+- For better LSP support run: `ninja -t compdb > compile_commands.json`
 
 # TODOS:
 

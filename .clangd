@@ -1,9 +1,0 @@
-CompileFlags:
-  Add: 
-    - -IC:/raylib/include
-    - -I.
-    - -I./src
-    - -I./vendor
-    - -I./vendor/capstone
-    - -std=gnu99
-    - -Wall
