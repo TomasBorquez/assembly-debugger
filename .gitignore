@@ -1,3 +1,4 @@
 build/
 .cache/
+mate.exe
 compile_commands.json

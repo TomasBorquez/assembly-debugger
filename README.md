@@ -15,8 +15,8 @@ https://github.com/user-attachments/assets/7a464bad-8a3c-461b-8d48-dc62d268d912
     - Ninja
     - Windows 10+
     - MINGW and gcc
-    - GDB 
-- And just run `ninja run` 
+- This project uses `mate.h` build system I created, for more info check it [here](https://github.com/TomasBorquez/mate.h)
+- To run use your compiler of choice and run the build script with: `gcc ./mate.c -o ./mate.exe && ./mate.exe` 
 - For better LSP support run: `ninja -t compdb > compile_commands.json`
 
 # TODOS:
