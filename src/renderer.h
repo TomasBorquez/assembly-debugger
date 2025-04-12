@@ -1,13 +1,13 @@
 /* MIT License
 
   renderer.h - A single-header library for using Clay with Raylib
-  Version - 2025-04-11 (0.1.0):
+  Version - 2025-05-11 (0.1.1):
   https://github.com/TomasBorquez/renderer.h
 
   Usage:
     #define CLAY_IMPLEMENTATION
-    #define RENDERER_IMPLEMENTATION
     #include "clay.h"
+    #define RENDERER_IMPLEMENTATION
     #include "renderer.h"
 */
 
@@ -735,7 +735,6 @@ void Clay_Raylib_Render(Clay_RenderCommandArray renderCommands, Font *fonts) {
   }
 }
 
-// Renderer Abstractions
 Clay_String toClayString(char *str) {
   return (Clay_String){.length = strlen(str), .chars = str};
 }
