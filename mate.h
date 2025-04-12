@@ -34,7 +34,6 @@
 #ifdef PLATFORM_WIN
 #define WIN32_LEAN_AND_MEAN
 #include <errno.h>
-#include <limits.h>
 #include <string.h>
 #include <windows.h>
 #elif def PLATFORM_LINUX

@@ -115,19 +115,3 @@ typedef struct {
 
 StringVector StringSplit(const char *s, char delimiter);
 void FreeStringVector(StringVector *sv);
-
-/* Arena */
-typedef struct {
-  int8_t *buffer;
-  size_t bufferLength;
-  size_t prevOffset;
-  size_t currOffset;
-} Arena;
-
-// This makes sure right alignment on 86/64 bits
-#define DEFAULT_ALIGNMENT (2 * sizeof(void *))
-
-Arena ArenaInit(size_t size);
-void *ArenaAlloc(Arena *arena, size_t size);
-void ArenaFree(Arena *arena);
-void ArenaReset(Arena *arena);

@@ -1,7 +1,9 @@
 #define CLAY_IMPLEMENTATION
+#define RENDERER_IMPLEMENTATION
 #include "capstone.h"
+#include "renderer.h"
+
 #include "clay.h"
-#include "renderer.c"
 
 #include "debugger.h"
 #include "disassembly.h"

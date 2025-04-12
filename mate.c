@@ -6,7 +6,7 @@ i32 main() {
   {
     CreateExecutable((Executable){.output = S("main"), .flags = S("-Wall -ggdb")});
 
-    AddFile(S("./src/main.c"));
+    AddFile(S("./src/main.c | ./src/renderer.h"));
     AddFile(S("./src/file.c"));
     AddFile(S("./src/base.c"));
     AddFile(S("./src/debugger.c"));
