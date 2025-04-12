@@ -1,0 +1,3 @@
+[submodule "vendor/renderer"]
+	path = vendor/renderer
+	url = https://github.com/TomasBorquez/renderer.h.git
