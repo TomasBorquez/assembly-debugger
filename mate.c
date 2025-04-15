@@ -4,17 +4,17 @@
 i32 main() {
   StartBuild();
   {
-    CreateExecutable((Executable){.output = S("main"), .flags = S("-Wall -ggdb")});
+    CreateExecutable((ExecutableOptions){.output = "main", .flags = "-Wall -ggdb"});
 
-    AddFile(S("./src/main.c"));
-    AddFile(S("./src/file.c"));
-    AddFile(S("./src/base.c"));
-    AddFile(S("./src/debugger.c"));
-    AddFile(S("./src/disassembly.c"));
+    AddFile("./src/main.c");
+    AddFile("./src/file.c");
+    AddFile("./src/base.c");
+    AddFile("./src/debugger.c");
+    AddFile("./src/disassembly.c");
 
-    AddIncludePaths(S("C:/raylib/include"), S("./src"), S("./"), S("./vendor"), S("./vendor/capstone"), S("./vendor/renderer"));
-    AddLibraryPaths(S("C:/raylib/lib"), S("./vendor/capstone"));
-    LinkSystemLibraries(S("capstone"), S("raylib"), S("opengl32"), S("gdi32"), S("winmm"));
+    AddIncludePaths("C:/raylib/include", "./src", "./", "./vendor", "./vendor/capstone", "./vendor/renderer");
+    AddLibraryPaths("C:/raylib/lib", "./vendor/capstone");
+    LinkSystemLibraries("capstone", "raylib", "opengl32", "gdi32", "winmm");
 
     String exePath = InstallExecutable();
     RunCommand(exePath);
