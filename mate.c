@@ -2,6 +2,8 @@
 #include "mate.h"
 
 i32 main() {
+  CreateConfig((MateOptions){.compiler = "gcc"});
+
   StartBuild();
   {
     CreateExecutable((ExecutableOptions){.output = "main", .flags = "-Wall -ggdb"});
